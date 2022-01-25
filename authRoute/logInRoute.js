@@ -12,7 +12,7 @@ router.route('/').post( (req,res)=>{
                 bcrypt.compare(logUser.password, doc.password, function(err, result) {
                     if(result)
                     {    const token=jwt.sign(tokenData,'skhatLaunda');
-                         res.cookie("auth",token,{maxAge:1000*60*60,httpOnly:true,SameSite:false,secure:true}).json({isUserLoggedIn:true});
+                         res.cookie("auth",token,{maxAge:1000*60*60,SameSite:false,secure:true}).json({isUserLoggedIn:true});
                     }
                     
                      else{
