@@ -2,11 +2,10 @@ const express = require('express')
 const cors =require('cors')
 const mongoose = require('mongoose');
 const app = express();
-const port = 5000;
 require('dotenv').config();
 
 app.use(cors({
-    origin:'http://localhost:3000',
+    origin:'*',
     credentials:true
 }));
 
@@ -14,10 +13,10 @@ app.use(express.json())
 
 
 mongoose.connect(process.env.DB_URI).then(
-    app.listen(port || process.env.PORT ,(err)=>{
+    app.listen(process.env.PORT|| 8443 ,(err)=>{
         if(err) console.error(err)
         else
-           console.log(`server is up and running on port ${port} and db connected`)
+           console.log(`server is up and running on port ${process.env.PORT} and db connected`)
     })
     
 ).catch(err=>console.error(err));
