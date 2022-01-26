@@ -14,7 +14,7 @@ app.use(express.json())
 
 
 mongoose.connect(process.env.DB_URI).then(
-    app.listen(port,(err)=>{
+    app.listen(port || process.env.PORT ,(err)=>{
         if(err) console.error(err)
         else
            console.log(`server is up and running on port ${port} and db connected`)
