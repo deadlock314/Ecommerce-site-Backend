@@ -1,10 +1,10 @@
 const router = require('express').Router();
-let homeProductData=require('../Schema/ProductSchema');
+let {ProductData}=require('../Schema/ProductSchemas');
 
 
 router.route('/').get((req,res)=>{
 
-    homeProductData.find({},(err,doc)=>{
+    ProductData.find({},(err,doc)=>{
         if(err){
             res.end(err)
         }
@@ -17,7 +17,7 @@ router.route('/').get((req,res)=>{
 
 // router.route('/').post((req,res)=>{
 
-//     const NewHomeProductData= new homeProductData(req.body);
+//     const NewHomeProductData= new ProductData(req.body);
 //      NewHomeProductData.save().then(res.end('hey mama'));
     
 // });
