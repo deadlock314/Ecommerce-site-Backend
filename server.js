@@ -5,7 +5,7 @@ const app = express();
 require('dotenv').config();
 
 app.use(cors({
-    origin:'https://ecommerce-app-api-1.herokuapp.com',
+    origin:'https://eccentricstore.netlify.app',
     credentials:true
 }));
 
