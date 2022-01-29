@@ -5,7 +5,7 @@ const app = express();
 require('dotenv').config();
 
 app.use(cors({
-    origin:'http://localhost:3000',
+    origin:'https://ecommerce-app-api-1.herokuapp.com',
     credentials:true
 }));
 
