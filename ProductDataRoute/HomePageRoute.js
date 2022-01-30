@@ -5,12 +5,7 @@ let {ProductData}=require('../Schema/ProductSchemas');
 router.route('/').get((req,res)=>{
 
     ProductData.find({},(err,doc)=>{
-        if(err){
-            res.end(err)
-        }
-        else{
-            res.json(doc);
-        }
+        (err) ? res.end(err):res.json(doc);
     })
     
 });
