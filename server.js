@@ -4,8 +4,14 @@ const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 
+const whitelist = ['https://eccentricstore.netlify.app','http://localhost:3000']
+
 app.use(cors({
-    origin:'https://eccentricstore.netlify.app',
+    origin: (origin, callback)=> {
+        (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
+          callback(new Error('Not allowed by CORS'))
+        }
+        ,
     credentials:true
 }));
 
