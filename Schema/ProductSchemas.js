@@ -34,6 +34,9 @@ const productExdesSchema= new mongoose.Schema({
 const ProductData=mongoose.model('homeProductData',productSchema);
 const MoblieData=mongoose.model('MoblieData',productSchema);
 const EarphoneData=mongoose.model('EarphoneData',productSchema);
-const ProductDataExdes=mongoose.model('ProductDataExdes',productExdesSchema);
 
-module.exports={ProductData ,ProductDataExdes ,EarphoneData,MoblieData};
+const ProductDataExdes=mongoose.model('ProductDataExdes',productExdesSchema);
+const MoblieExdesData=mongoose.model('MoblieExdesData',productExdesSchema);
+const EarphoneExdesData=mongoose.model('EarphoneExdesData',productExdesSchema);
+
+module.exports={ProductData ,ProductDataExdes ,EarphoneData,MoblieData ,EarphoneExdesData,MoblieExdesData};
