@@ -6,14 +6,14 @@ require('dotenv').config();
 
 const whitelist = ['https://eccentricstore.netlify.app','http://localhost:3000']
 
-app.use(cors({
-    origin: (origin, callback)=> {
-        (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
-          callback(new Error('Not allowed by CORS'))
-        }
-        ,
-    credentials:true
-}));
+// app.use(cors({
+//     origin: (origin, callback)=> {
+//         (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
+//           callback(new Error('Not allowed by CORS'))
+//         }
+//         ,
+//     credentials:true
+// }));
 
 app.use(express.json())
 
@@ -29,8 +29,7 @@ mongoose.connect(process.env.DB_URI).then(
                     
    
 
-const homeRoute =require('./ProductDataRoute/HomePageRoute');
-const productRoutes =require('./ProductDataRoute/productsRoute');
+const homeRoute =require('./ProductDataRoute/productsRoutes');
 const proRoute = require('./ProductDataRoute/singleProRoute');
 const loginRoute=require('./authRoute/logInRoute');
 const signUpRoute=require('./authRoute/signUpRoute');
@@ -41,4 +40,3 @@ app.use('/',proRoute)
 app.use('/login', loginRoute)
 app.use('/logout', logOutRoute)
 app.use('/signup',signUpRoute);
-app.use('/products',productRoutes);
