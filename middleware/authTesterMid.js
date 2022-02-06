@@ -1,29 +1,28 @@
  const jwt =require('jsonwebtoken');
-const user=require('../schema/userSchema')
-
+const userAuth=require('../Schema/userAuthSchema')
 
 
 const authTesterMiddleware=(req,res,next)=>{
     
-    jwt.verify(req.cookies.auth,'skhatLaunda',(err,data)=>{
-        console.log(data)
+    jwt.verify(req.cookies.auth, process.env.SECRECT ,(err,data)=>{
        
     if(typeof(data)=='undefined')
-    {
         res.status(302).json({isUserAdded:false,isUserLoggedIn:false});
-    }
+    
     else 
         { 
-            user.findOne({email:data.doc.email},(err,doc)=> {
-                if(doc.email==data.doc.email){
-                   next();
-                   
+            userAuth.findOne({email:data.doc.email},(err,doc)=> {
+                if(doc.email==data.doc.email)
+                {
+                    req.id=data.doc.userId;
+                    next();
                 }
-                else{
-               res.status(302).json({isUserAdded:false,isUserLoggedIn:false});
-           }})
+                   
+                else
+                   res.status(302).json({isUserAdded:false,isUserLoggedIn:false});
+           })
            
-           }
+        }
        
         
     })

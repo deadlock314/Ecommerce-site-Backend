@@ -1,26 +1,31 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-const user =require('../Schema/userSchema');
+const userAuth =require('../Schema/userAuthSchema');
 const jwt =require('jsonwebtoken');
 
 router.route('/').post( (req,res)=>{
     const logUser=req.body;
+    //console.log(logUser)
     
-            user.findOne({email:logUser.email},(err,doc)=>{
-               
-                const tokenData={doc,date: new Date() }
-                bcrypt.compare(logUser.password, doc.password, function(err, result) {
-                    if(result)
-                    {    const token=jwt.sign(tokenData,'skhatLaunda');
-                         res.cookie("auth",token,{maxAge:1000*60*60,SameSite:false,secure:true}).json({isUserLoggedIn:true});
-                    }
-                    
-                     else{
-                         res.status(400).json({isUserLoggedIn:false})
-                     }
-                });
-                      
+            userAuth.findOne({email:logUser.email}).then((doc,err)=>{
+                if(err)
+                    res.status(400).json({isUserLoggedIn:false})
+               else{
+                    const tokenData={doc,date: new Date() }
+                    bcrypt.compare(logUser.password, doc.password, (err, result)=> {
+                        if(result){
+                            const token= jwt.sign(tokenData, process.env.SECRECT);
+                            res.cookie("auth",token,{maxAge:1000*60*60,SameSite:false,secure:true}).json({isUserLoggedIn:true});
+                        }
+                        else
+                            res.status(400).json({isUserLoggedIn:false})
+                   
+                    })
+               }
                 
+        }).catch((err)=>{
+                console.log(err)
+                res.status(400).json({isUserLoggedIn:false})
             })
    
 })
