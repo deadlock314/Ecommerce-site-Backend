@@ -1,8 +1,12 @@
 const mongoose=require('mongoose');
 
-const userSchema=new mongoose.Schema(
+const userAuthSchema=new mongoose.Schema(
    {
-     
+    
+    userId:{
+        type:Number,
+        required:[true,'invaild userId']
+    },
     name:{
         type:String,
         unique:true,
@@ -25,6 +29,6 @@ const userSchema=new mongoose.Schema(
    
 } 
 )
-const user =mongoose.model('user',userSchema);
+const userAuth =mongoose.model('userAuth',userAuthSchema);
 
-module.exports=user;
+module.exports=userAuth;
