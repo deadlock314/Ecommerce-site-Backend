@@ -3,7 +3,9 @@ let {ProductData,EarphoneData,MoblieData}=require('../Schema/ProductSchemas');
 
 let SchemaVar= ProductData;
 
-router.route('/').get((req,res)=>res.redirect(`/laptops`))
+router.route('/').get((req,res)=>{
+res.cookie('firsthit','kjkjaskjla',{maxAge:1000*60*600,sameSite:'none',secure:true}).redirect(`/laptops`);
+})
 
 router.route('/:products').get((req,res)=>{
     
