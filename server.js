@@ -17,10 +17,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/getcookie',(req,res)=>{
-    res.cookie('a','b',{maxAge:1000*5000}).json({a:'s'})
 
-})
 
 
 mongoose.connect(process.env.DB_URI).then(
