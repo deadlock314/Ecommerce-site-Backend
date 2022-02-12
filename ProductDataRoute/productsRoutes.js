@@ -12,7 +12,7 @@ router.route('/:products').get((req,res)=>{
     SchemaVar=(req.params.products=='mobiles')?MoblieData:(req.params.products=='earphones') ? EarphoneData : ProductData;
 
     SchemaVar.find({},(err,doc)=>{
-        (err) ? res.end(err):res.cookie('firsthit','kjkjaskjla',{maxAge:1000*60*600,sameSite:'none',secure:true}).json(doc);
+        (err) ? res.end(err):res.cookie('firsthit','kjkjaskjla',{maxAge:1000*60*600,sameSite:'none',secure:true,httpOnly:false}).json(doc);
     })
     
 });

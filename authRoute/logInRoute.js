@@ -15,7 +15,7 @@ router.route('/').post( (req,res)=>{
                     bcrypt.compare(logUser.password, doc.password, (err, result)=> {
                         if(result){
                             const token= jwt.sign(tokenData, process.env.SECRECT);
-                            res.cookie("auth",JSON.stringify(token) ,{maxAge:1000*60*60,sameSite:'none',secure:true,path:'/'}).json({isUserLoggedIn:true});
+                            res.cookie("auth",JSON.stringify(token) ,{maxAge:1000*60*60,sameSite:'none',secure:true,path:'/',httpOnly:false}).json({isUserLoggedIn:true});
                         }
                         else
                             res.status(400).json({isUserLoggedIn:false})
