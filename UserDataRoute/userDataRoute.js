@@ -3,10 +3,12 @@ const authTesterMiddleware=require('../middleware/authTesterMid');
 const User =require('../Schema/userDataSchema');
 
 router.route('/user/:id').get(authTesterMiddleware,(req,res)=>{
+    const Userid=req.params.id;
+   
     (async()=>{
         try{
-        
-        const doc= await User.findOne({userId:req.id})
+       
+        const doc= await User.findOne({"userAccData.userId":Userid})
         res.json(doc);
             }
     catch(err){
@@ -15,10 +17,12 @@ router.route('/user/:id').get(authTesterMiddleware,(req,res)=>{
         })();
 })
 
-router.route('/user/:id').post(authTesterMiddleware,(req,res)=>{
+router.route('/updateuser/:id').post(authTesterMiddleware,(req,res)=>{
+    const Userid=req.params.id;
+
     (async()=>{
     try{
-        const doc= await User.findOneAndUpdate({userId:req.id},req.body)
+        const doc= await User.findOneAndUpdate({"userAccData.userId":Userid},req.body)
         res.status(200).json({isUpdatetd:false});
     }
     catch(err){
