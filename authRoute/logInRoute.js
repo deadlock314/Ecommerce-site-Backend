@@ -12,6 +12,7 @@ router.route('/').post( (req,res)=>{
                     res.status(400).json({isUserLoggedIn:false})
                else{
                     const tokenData={doc,date: new Date() }
+                    //console.log(doc)
                     bcrypt.compare(logUser.password, doc.password, (err, result)=> {
                         if(result){
                             const token= jwt.sign(tokenData, process.env.SECRECT);
