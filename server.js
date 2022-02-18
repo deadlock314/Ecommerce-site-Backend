@@ -7,14 +7,14 @@ require('dotenv').config();
 
 const whitelist = ['https://eccentricstore.netlify.app','http://localhost:3000','http://localhost:443']
 
-// app.use(cors({
-//     origin: (origin, callback)=> {
-//         (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
-//           callback(new Error('Not allowed by CORS'))
-//         }
-//         ,
-//     credentials:true
-// }));
+app.use(cors({
+    origin: (origin, callback)=> {
+        (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
+          callback(new Error('Not allowed by CORS'))
+        }
+        ,
+    credentials:true
+}));
 app.use(cookieParser())
 
 app.use(express.json());
