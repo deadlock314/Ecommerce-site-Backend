@@ -3,11 +3,6 @@ const mongoose=require("mongoose");
 const userDataSchema = new mongoose.Schema({
     
     userAccData:{
-
-        userId:{
-          type:Number,
-          required:[true,'invaild userId']
-        },
         name:{
           type:String,
           required:[true, 'name required'],

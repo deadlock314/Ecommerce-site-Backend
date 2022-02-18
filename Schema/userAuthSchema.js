@@ -3,10 +3,6 @@ const mongoose=require('mongoose');
 const userAuthSchema=new mongoose.Schema(
    {
     
-    userId:{
-        type:Number,
-        required:[true,'invaild userId']
-    },
     name:{
         type:String,
         unique:true,
@@ -28,7 +24,29 @@ const userAuthSchema=new mongoose.Schema(
     } 
    
 } 
-)
-const userAuth =mongoose.model('userAuth',userAuthSchema);
+);
 
-module.exports=userAuth;
+const tempAuthUserSchema= new mongoose.Schema(
+    {
+     
+    email:{
+         required:[true, 'e-mail address required'],
+         unique:[true,'existing email addresss '],
+         type:String,
+         lowercase:true
+    },
+    otp:{
+        required:true,
+        type:Number,
+        unique:[true,'duplicate otp']
+    },
+    createdAt: { type: Date, expires: '3m', default: Date.now }
+  
+    
+ } 
+ );
+ 
+const userAuth =mongoose.model('userAuth',userAuthSchema);
+const tempAuthUser =mongoose.model('tempAuthUser',tempAuthUserSchema);
+
+module.exports={userAuth,tempAuthUser};

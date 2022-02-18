@@ -1,57 +1,31 @@
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
-const userAuth =require('../Schema/userAuthSchema');
-const User =require('../Schema/userDataSchema');
-
+const {tempAuthUser,userAuth} =require('../Schema/userAuthSchema');
+const {createMailSender , mailSenderFun}=require('../HelperFun/SendMailFuns');
 router.route('/').post((req,res)=>{
 
-    const users=req.body;
-    const userID=(async()=>{
-        try{
-            const countVal=await userAuth.count({})
-            return countVal;
+const users=req.body;
+
+    const newTempAuthUser= new tempAuthUser({email:users.email,otp:parseInt(Math.random()*999999)});
+
+     userAuth.findOne({email:users.email}).then((doc,err)=>{
+        if(doc){
+            res.status(400).json({isUserSignedUp:false,isDuplicateUser:true,isEmailSent:false});
         }
-        catch(err){
-             return false;
-        }
-    })();
-    
-const promiseUserID=Promise.resolve(userID);
-
-promiseUserID.then((userID)=>{
-    console.log(userID)
-    if(userID==false)
-    res.status(400).json({isUserSignedUp:false});
-    else{
-
-        const newUserAuth= new userAuth({...users,userId:userID+1});
-        const newUser= new User({userAccData:{name:users.name,email:users.email,userId:userID+1},userNonImpData:{}});
-
-    bcrypt.hash(newUserAuth.password, 12, function (err, hashPassword) {
-
-        if(err)
-          res.status(400).json({isUserSignedUp:false});
-        else
-        {    
-            newUserAuth.password=hashPassword;
-            (async()=>{
-                try{
-                    const res1=await newUser.save();
-                    const res0=await newUserAuth.save();
-                  res.status(201).json({isUserSignedUp:true})  
+        else {
+            newTempAuthUser.save((err,result)=>{
+                if(err)
+                res.status(400).json({isUserSignedUp:false,isDuplicateUser:true,isEmailSent:false})
+                else{
+                   createMailSender();
+                    const mailRes =mailSenderFun(result.email,"verifying sign Up mail",result.otp);
+                    (mailRes)? res.status(200).json({isUserSignedUp:false,isDuplicateUser:false,isEmailSent:true}) :
+                    res.status(200).json({isUserSignedUp:false,isDuplicateUser:false,isEmailSent:false});
                 }
-                catch(err){ 
-                    
-                    console.log(err)
-                ;}
-            })();
-            
+            })
         }
-    });
-   
-        }
+     });
 
-}).catch(err=>res.status(400).json({isUserSignedUp:false}))
+
     
 
 });

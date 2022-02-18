@@ -7,14 +7,14 @@ require('dotenv').config();
 
 const whitelist = ['https://eccentricstore.netlify.app','http://localhost:3000','http://localhost:443']
 
-app.use(cors({
-    origin: (origin, callback)=> {
-        (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
-          callback(new Error('Not allowed by CORS'))
-        }
-        ,
-    credentials:true
-}));
+// app.use(cors({
+//     origin: (origin, callback)=> {
+//         (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
+//           callback(new Error('Not allowed by CORS'))
+//         }
+//         ,
+//     credentials:true
+// }));
 app.use(cookieParser())
 
 app.use(express.json());
@@ -39,10 +39,12 @@ const userDataRoute=require('./UserDataRoute/userDataRoute')
 const loginRoute=require('./authRoute/logInRoute');
 const signUpRoute=require('./authRoute/signUpRoute');
 const logOutRoute=require('./authRoute/logOutRoute');
+const AuthOtpRoute=require('./authRoute/AuthOtp');
 
 app.use('/',homeRoute)
 app.use('/',proRoute)
 app.use('/login', loginRoute)
 app.use('/logout', logOutRoute)
 app.use('/signup',signUpRoute);
+app.use('/',AuthOtpRoute);
 app.use('/',userDataRoute);
