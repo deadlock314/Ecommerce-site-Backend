@@ -17,11 +17,11 @@ const nodemailer=require('nodemailer');
             to:client,
             subject:sub,
             html:`<h3>Dear ${data.name},</h3>
-            <p>Thank you for Signing up with our website <b>EccentricStore</b>.</p>
-            <p> please enter following  <br/>
+            <p>Thank you for Signing up in website <b>EccentricStore</b>. </p>
+            <p> please enter following  </p>
              <h3>One Time Password (OTP) : ${data.otp}</h3> 
-            <br/> That will expire soon so hurry up.. </p> 
-            <p>In case you have not did this please ignore this mail</p>`
+            <p> That will expire soon so hurry up.. </p> 
+            <p>In case you have not did this please ignore this mail</p> `
             
         });
 
