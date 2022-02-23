@@ -18,7 +18,7 @@ router.route('/').post( (req,res)=>{
                         if(result){
                             const token= jwt.sign(tokenData, process.env.SECRECT);
                             res.cookie("auth",token ,{maxAge:1000*60*600,sameSite:'none',secure:true}).json
-                            ({isUserLoggedIn:true,isCorrectPassword:false,isCorrectUser:true});
+                            ({isUserLoggedIn:true,isCorrectPassword:true,isCorrectUser:true});
                         }
                         else
                             res.status(400).json({isUserLoggedIn:false,isCorrectPassword:false});
