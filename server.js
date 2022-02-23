@@ -5,14 +5,9 @@ const cookieParser=require('cookie-parser');
 const app = express();
 require('dotenv').config();
 
-const whitelist = ['https://eccentricstore.netlify.app','http://localhost:3000','http://localhost:443','*']
-
-app.use(cors({
-    origin: (origin, callback)=> {
-        (whitelist.indexOf(origin) !== -1) ? callback(null, true): 
-          callback(new Error('Not allowed by CORS'))
-        }
-        ,
+app.use(
+    cors({
+    origin:'https://eccentricstore.netlify.app'||'*',
     credentials:true
 }));
 app.use(cookieParser())
