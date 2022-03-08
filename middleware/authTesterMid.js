@@ -1,9 +1,8 @@
  const jwt =require('jsonwebtoken');
-const userAuth=require('../Schema/userAuthSchema')
+const {userAuth}=require('../Schema/userAuthSchema')
 
 
 const authTesterMiddleware=(req,res,next)=>{
-    console.log(req.headers)
     if(typeof(req.cookies)=='undefined')
     res.status(302).json({isUserAdded:false,isUserLoggedIn:false});
 

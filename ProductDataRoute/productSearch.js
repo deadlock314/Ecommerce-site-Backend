@@ -4,7 +4,7 @@ let {ProductData}=require('../Schema/ProductSchemas');
 router.route('/terms?').get(async(req,res)=>{
      console.log(req.query.des);
 
-    const regexDes=new RegExp (`${req.query.des.replace(/\s/g,"*",)}```,"ig");
+    const regexDes=new RegExp (`${req.query.des.replace(/\s/g,"*",)}`,"ig");
     console.log(regexDes);
     try{
         const resData= await ProductData.find({},req.query.product_type)

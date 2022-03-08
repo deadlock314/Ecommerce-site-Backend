@@ -5,7 +5,6 @@ const jwt =require('jsonwebtoken');
 
 router.route('/').post( (req,res)=>{
     const logUser=req.body;
-    //console.log(logUser)
     
             userAuth.findOne({email:logUser.email}).then((doc,err)=>{
                 if(err)
@@ -17,7 +16,7 @@ router.route('/').post( (req,res)=>{
                     bcrypt.compare(logUser.password, doc.password, (err, result)=> {
                         if(result){
                             const token= jwt.sign(tokenData, process.env.SECRECT);
-                            res.cookie("auth",token ,{maxAge:1000*60*600,sameSite:'none',secure:true}).json
+                            res.cookie("auth",token ,{maxAge:1000*60*600,sameSite:'none'}).json
                             ({isUserLoggedIn:true,isCorrectPassword:true,isCorrectUser:true});
                         }
                         else
