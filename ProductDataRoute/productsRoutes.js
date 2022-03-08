@@ -1,17 +1,10 @@
 const router = require('express').Router();
-let {ProductData,EarphoneData,MoblieData}=require('../Schema/ProductSchemas');
+let {ProductData}=require('../Schema/ProductSchemas');
 
-let SchemaVar= ProductData;
-
-router.route('/').get((req,res)=>{
-res.redirect(`/laptops`);
-})
 
 router.route('/:products').get((req,res)=>{
     
-    SchemaVar=(req.params.products=='mobiles')?MoblieData:(req.params.products=='earphones') ? EarphoneData : ProductData;
-
-    SchemaVar.find({},(err,doc)=>{
+     ProductData.find({},req.params.products,(err,doc)=>{
         (err) ? res.end(err):res.json(doc);
     })
     
@@ -21,10 +14,14 @@ router.route('/:products').get((req,res)=>{
 
 
 
-// router.route('/').post((req,res)=>{
+// router.route('/:products').post((req,res)=>{
+    
+//    const newProductdata= new ProductData({...req.body});
 
-//     const NewHomeProductData= new ProductData(req.body);
-//      NewHomeProductData.save().then(res.end('hey mama'));
+//     newProductdata.save().then(()=>res.json({sucess:true})).catch((err)=>
+//      { console.log(err);
+//          res.json({sucess:false})}
+//      )
     
 // });
 
