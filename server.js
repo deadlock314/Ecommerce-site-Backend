@@ -33,6 +33,7 @@ mongoose.connect(process.env.DB_URI).then(
 
 const homeRoute =require('./ProductDataRoute/productsRoutes');
 const proRoute = require('./ProductDataRoute/singleProRoute');
+const productSearch = require('./ProductDataRoute/productSearch');
 const userDataRoute=require('./UserDataRoute/userDataRoute')
 const loginRoute=require('./authRoute/logInRoute');
 const signUpRoute=require('./authRoute/signUpRoute');
@@ -41,6 +42,7 @@ const AuthOtpRoute=require('./authRoute/AuthOtp');
 
 app.use('/',homeRoute)
 app.use('/',proRoute)
+app.use('/productsearch',productSearch)
 app.use('/login', loginRoute)
 app.use('/logout', logOutRoute)
 app.use('/signup',signUpRoute);
