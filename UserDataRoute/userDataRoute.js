@@ -4,11 +4,10 @@ const User =require('../Schema/userDataSchema');
 
 router.route('/user/:id').get(authTesterMiddleware,(req,res)=>{
     const Userid=req.params.id;
-   
     (async()=>{
         try{
        
-        const doc= await User.findOne({"userAccData.email":Userid})
+        const doc= await User.findOne({"userAccData.email":`${Userid}`.replace(" ",'')})
         res.json(doc);
             }
     catch(err){
