@@ -8,7 +8,7 @@ router.route('/user/:id').get(authTesterMiddleware,(req,res)=>{
     (async()=>{
         try{
        
-        const doc= await User.findOne({"userAccData.userId":Userid})
+        const doc= await User.findOne({"userAccData.email":Userid})
         res.json(doc);
             }
     catch(err){
@@ -22,7 +22,7 @@ router.route('/updateuser/:id').post(authTesterMiddleware,(req,res)=>{
 
     (async()=>{
     try{
-        const doc= await User.findOneAndUpdate({"userAccData.userId":Userid},req.body)
+        const doc= await User.findOneAndUpdate({"userAccData.email":Userid},req.body)
         res.status(200).json({isUpdatetd:false});
     }
     catch(err){
