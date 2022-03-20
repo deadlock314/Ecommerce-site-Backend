@@ -5,7 +5,6 @@ const jwt =require('jsonwebtoken');
 
 router.route('/').post( (req,res)=>{
    
-    res.header("Access-Control-Allow-Origin", req.headers.host);
     
     const logUser=req.body;
     

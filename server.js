@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 app.use(express.json());
 
-
+app.use(credentialsMiddleware);
 
 
 mongoose.connect(process.env.DB_URI).then(
@@ -37,6 +37,7 @@ const loginRoute=require('./authRoute/logInRoute');
 const signUpRoute=require('./authRoute/signUpRoute');
 const logOutRoute=require('./authRoute/logOutRoute');
 const AuthOtpRoute=require('./authRoute/AuthOtp');
+const credentialsMiddleware = require('./middleware/cookieCredentialsMid');
 
 app.use('/',homeRoute)
 app.use('/',proRoute)
