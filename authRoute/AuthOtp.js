@@ -2,9 +2,10 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const {tempAuthUser,userAuth} =require('../Schema/userAuthSchema');
 const User =require('../Schema/userDataSchema');
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
 
 
-router.route('/signup/alphakey').post((req,res)=>{
+router.route('/signup/alphakey').post( credentialsMiddleware ,(req,res)=>{
     const userSideData=req.body;
     
     tempAuthUser.findOne({otp:userSideData.otp}).then((doc,err)=>{

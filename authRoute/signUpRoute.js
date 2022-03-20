@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const {tempAuthUser,userAuth} =require('../Schema/userAuthSchema');
 const {createMailSender , mailSenderFun}=require('../HelperFun/SendMailFuns');
-router.route('/').post((req,res)=>{
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
+
+router.route('/').post( credentialsMiddleware, (req,res)=>{
 
 const users=req.body;
 

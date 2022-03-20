@@ -1,8 +1,8 @@
 const router = require('express').Router();
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
 let {ProductData}=require('../Schema/ProductSchemas');
 
-router.route('/:products').get((req,res)=>{
-
+router.route('/:products').get(credentialsMiddleware,(req,res)=>{
     ProductData.find({},req.params.products,(err,doc)=>{
         (err) ? res.end(err):res.json(doc);
     })

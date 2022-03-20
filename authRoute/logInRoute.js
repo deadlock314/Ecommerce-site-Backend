@@ -2,8 +2,9 @@ const router = require('express').Router();
 const bcrypt = require('bcrypt');
 const {userAuth} =require('../Schema/userAuthSchema');
 const jwt =require('jsonwebtoken');
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
 
-router.route('/').post( (req,res)=>{
+router.route('/').post( credentialsMiddleware ,(req,res)=>{
    
     
     const logUser=req.body;

@@ -1,8 +1,10 @@
 const router = require('express').Router();
 let {ProductData}=require('../Schema/ProductSchemas');
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
 
-router.route('/terms?').get(async(req,res)=>{
-     console.log(req.query.des);
+
+router.route('/terms?').get( credentialsMiddleware, async(req,res)=>{
+     
 
     const regexDes=new RegExp (`${req.query.des.replace(/\s/g,"*",)}`,"ig");
     console.log(regexDes);

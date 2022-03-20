@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const {ProductDataExdes}= require('../Schema/ProductSchemas');
+const credentialsMiddleware = require('../middleware/cookieCredentialsMid');
 
-router.route('/singleproductexdes/:products/:id').get((req,res)=>{
+router.route('/singleproductexdes/:products/:id').get(credentialsMiddleware ,(req,res)=>{
     const Qinfo=req.params;
 
     ProductDataExdes.findOne({},Qinfo.products).then((doc,err)=>{
