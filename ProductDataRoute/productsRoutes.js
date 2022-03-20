@@ -1,10 +1,9 @@
 const router = require('express').Router();
 let {ProductData}=require('../Schema/ProductSchemas');
 
-
 router.route('/:products').get((req,res)=>{
-    
-     ProductData.find({},req.params.products,(err,doc)=>{
+
+    ProductData.find({},req.params.products,(err,doc)=>{
         (err) ? res.end(err):res.json(doc);
     })
     

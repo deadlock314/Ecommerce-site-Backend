@@ -4,6 +4,9 @@ const {userAuth} =require('../Schema/userAuthSchema');
 const jwt =require('jsonwebtoken');
 
 router.route('/').post( (req,res)=>{
+   
+    res.header("Access-Control-Allow-Origin", req.headers.host);
+    
     const logUser=req.body;
     
             userAuth.findOne({email:logUser.email}).then((doc,err)=>{
